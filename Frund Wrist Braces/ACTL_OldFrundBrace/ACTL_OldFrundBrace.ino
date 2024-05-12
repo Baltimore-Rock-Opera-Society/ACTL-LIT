@@ -235,11 +235,13 @@ void handleOSCMessage() {
       // This is where you'd change the OSC endpoint name - /led is just the default here
       // Note to self: we should probably standardize our OSC endpoint naming...
       msg.dispatch("/led", led);
-      msg.dispatch("/oldfrundblue", oldFrundBlueModule);
-      msg.dispatch("/oldfrundgreen", oldFrundGreenModule);
       // The second argument, led, is the name of the function you want to call when a message is received.
       // Currently it will call led(), which you can see up above.
       // Make sure this argument matches the name of whatever function you write to handle behavior!
+
+      msg.dispatch("/oldfrundblue", oldFrundBlueModule);
+      msg.dispatch("/oldfrundgreen", oldFrundGreenModule);
+
     } else {
       error = msg.getError();
       Serial.print("error: ");
@@ -254,22 +256,17 @@ void loop() {
   switch (oldFrundBlueState) {
   case 0:
     // statements
-    // OFF
-    //Serial.println("This should turn the mouth off!");
-    //strip.clear();
+    // Turn off the blue module!
     strip.setPixelColor(0, 0, 0, 0);
     strip.show();
     break;
   case 1:
     // statements
-    // Turn all pixels red? (test for now)
-    //Serial.println("This should change the mouth to red!");
-    //strip.fill(timeBlue, 0, OLD_FRUND_LED_COUNT);
+    // Turn on the blue module!
     strip.setPixelColor(0, timeBlue);
     strip.show();
     break;
   default:
-    // statements
     // OFF (failstate?)
     strip.clear();
     strip.show();
@@ -278,23 +275,17 @@ void loop() {
 
   switch (oldFrundGreenState) {
   case 0:
-    // statements
     // OFF
-    //Serial.println("This should turn the mouth off!");
-    //strip.clear();
+    // Turn off the green module!
     strip.setPixelColor(1, 0, 0, 0);
     strip.show();
     break;
   case 1:
-    // statements
-    // Turn all pixels red? (test for now)
-    //Serial.println("This should change the mouth to red!");
-    //strip.fill(timeBlue, 0, OLD_FRUND_LED_COUNT);
+    // Turn on the green module!
     strip.setPixelColor(1, frundGreen);
     strip.show();
     break;
   default:
-    // statements
     // OFF (failstate?)
     strip.clear();
     strip.show();
