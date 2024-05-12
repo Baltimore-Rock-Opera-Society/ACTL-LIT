@@ -195,10 +195,8 @@ void led(OSCMessage &msg) {
 
 // This function will be called by handleOSCMessage()
 void productionElement(OSCMessage &msg) {
-  itemState
- = msg.getInt(0);
-  //digitalWrite(LED_PIN, itemState
-);
+  itemState = msg.getInt(0);
+  //digitalWrite(LED_PIN, itemState);
   //digitalWrite(BUILTIN_LED, ledState); // This is here if you just want to control the on-board LED
 
   /* Conditional state of OSC message control
