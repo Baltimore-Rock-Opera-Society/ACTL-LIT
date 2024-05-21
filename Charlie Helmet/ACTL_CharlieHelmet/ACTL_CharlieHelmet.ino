@@ -49,7 +49,7 @@ PixelStrip NeoPixel_BLOB_R("BLOB", PIN_BLOB_R, NEO_GRB + NEO_KHZ800);
 // (go check config.h)
 int keyIndex = 0;            // your network key Index number (needed only for WEP)
 
-IPAddress local_IP(10, 0, 56, 127);
+IPAddress local_IP(10, 0, 56, 214);
 IPAddress gateway(10, 0, 56, 1);
 IPAddress subnet(255, 255, 254, 0);
 
@@ -98,12 +98,13 @@ void setup() {
 
   Serial.println("Starting up...");
 
+  /*
   #ifndef __SAMD21G18A__
     // Configures static IP address (the M0s do not seem to need this and it will in fact not compile if you include this)
     if (!WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS)) {
       Serial.println("STA Failed to configure");
     }
-  #endif
+  #endif */
 
   // Connect to WiFi network
   Serial.println();
@@ -173,9 +174,6 @@ void loop() {
     break;
   case 1:
     // HAPPINESS - YELLOW
-    // Turn all pixels red? (test for now)
-    //Serial.println("This should change the helmet to red!");
-    //strip.fill(red, 0, ITEM_LED_COUNT);
     NeoPixel_SIDE_L.setCustomColor(246, 235, 0);
     NeoPixel_SIDE_R.setCustomColor(246, 235, 0);
     NeoPixel_BLOB_L.setCustomColor(246, 235, 0);
@@ -187,8 +185,6 @@ void loop() {
   case 2:
     // SADNESS - PURPLE
     // Turn all pixels red? (test for now)
-    //Serial.println("This should change the helmet to red!");
-    //strip.fill(red, 0, ITEM_LED_COUNT);
     // 184, 51, 255
     NeoPixel_SIDE_L.setCustomColor(77, 3, 156);
     NeoPixel_SIDE_R.setCustomColor(77, 3, 156);
@@ -200,28 +196,54 @@ void loop() {
     break;
   case 3:
     // LOVE - PINK (but fails to get through, so maybe a "sputtering" animation effect here?)
-    // Turn all pixels red? (test for now)
+    // Turn all pixels pink? (test for now)
+    // TO-DO: Maybe add quick flashes to purple, then a "sputter"?
     //Serial.println("This should change the helmet to red!");
     //strip.fill(red, 0, ITEM_LED_COUNT);
-    NeoPixel_SIDE_L.setColor("RED");
-    NeoPixel_SIDE_R.setColor("RED");
-    NeoPixel_BLOB_L.setColor("RED");
-    NeoPixel_MOHAWK_L.setColor("RED");
-    NeoPixel_BLOB_R.setColor("RED");
-    NeoPixel_MOHAWK_R.setColor("RED");
+    NeoPixel_SIDE_L.setCustomColor(255, 25, 175);
+    NeoPixel_SIDE_R.setCustomColor(255, 25, 175);
+    NeoPixel_BLOB_L.setCustomColor(255, 25, 175);
+    NeoPixel_MOHAWK_L.setCustomColor(255, 25, 175);
+    NeoPixel_BLOB_R.setCustomColor(255, 25, 175);
+    NeoPixel_MOHAWK_R.setCustomColor(255, 25, 175);
+    delay(random(150,300));
+    NeoPixel_SIDE_L.setCustomColor(169, 24, 222);
+    NeoPixel_SIDE_R.setCustomColor(169, 24, 222);
+    NeoPixel_BLOB_L.setCustomColor(169, 24, 222);
+    NeoPixel_MOHAWK_L.setCustomColor(169, 24, 222);
+    NeoPixel_BLOB_R.setCustomColor(169, 24, 222);
+    NeoPixel_MOHAWK_R.setCustomColor(169, 24, 222);
+    delay(random(350,550));
+    // 8, 70, 204
+    NeoPixel_SIDE_L.setCustomColor(8, 70, 204);
+    NeoPixel_SIDE_R.setCustomColor(8, 70, 204);
+    NeoPixel_BLOB_L.setCustomColor(8, 70, 204);
+    NeoPixel_MOHAWK_L.setCustomColor(8, 70, 204);
+    NeoPixel_BLOB_R.setCustomColor(8, 70, 204);
+    NeoPixel_MOHAWK_R.setCustomColor(8, 70, 204);
     //strip.show();
     break;
   case 4:
     // PANIC - WHITE FLASH (???)
-    // Turn all pixels red? (test for now)
-    //Serial.println("This should change the helmet to red!");
-    //strip.fill(red, 0, ITEM_LED_COUNT);
     NeoPixel_SIDE_L.setColor("WHITE");
     NeoPixel_SIDE_R.setColor("WHITE");
     NeoPixel_BLOB_L.setColor("WHITE");
     NeoPixel_MOHAWK_L.setColor("WHITE");
     NeoPixel_BLOB_R.setColor("WHITE");
     NeoPixel_MOHAWK_R.setColor("WHITE");
+    // delay() is bad and I should feel bad.
+    // I could add another OSC endpoint for controlling transition time,
+    // and send a fade from QLab to dynamically control how fast/slow the pulses are
+    // (to allow for more a controlled hyperventilating effect, where Charlie's
+    // "breathing" speeds up and then reasserts itself as he calms down, etc)
+    delay(random(50,100));
+    NeoPixel_SIDE_L.clearPixels();
+    NeoPixel_SIDE_R.clearPixels();
+    NeoPixel_BLOB_L.clearPixels();  
+    NeoPixel_BLOB_R.clearPixels();
+    NeoPixel_MOHAWK_L.clearPixels();
+    NeoPixel_MOHAWK_R.clearPixels();
+    delay(random(100,200));
     //strip.show();
     break;
   default:
